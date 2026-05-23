@@ -13,11 +13,9 @@ export default function ChatRoom({ username, room }) {
 
   useEffect(() => {
     socket.emit('joinRoom', { username, room });
-
     socket.on('history', (history) => {
       setMessages(history);
     });
-
     socket.on('message', (msg) => {
       setMessages((prev) => [...prev, msg]);
     });
@@ -83,12 +81,9 @@ export default function ChatRoom({ username, room }) {
   const editMessage = (id, newContent) => {
     socket.emit('updateMessage', { room, id, newContent });
   };
-
-  // Delete a message
   const deleteMessage = (id) => {
     socket.emit('deleteMessage', { room, id });
   };
-
   return (
     <div className="chat-container flex h-full">
       <div className="sidebar w-1/4 p-4 border-r border-gray-300">
